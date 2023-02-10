@@ -11,10 +11,15 @@ const GridPopupMenu = (props) => {
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
 
+  const pinColumn = () => {
+    console.log('column api', props.columnApi)
+    props.columnApi.getPrimaryColumns()
+  }
+
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs />}
+      content={<Tabs pinColumn={() => pinColumn()}/>}
       visible={visible}
       onClickOutside={hide}
       allowHTML={true}

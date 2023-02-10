@@ -9,6 +9,7 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import GridPopupMenu from '../components/gridPopupMenu/gridPopupMenu'
 
 export default function Home() {
+  const gridRef = useRef()
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
     { 
@@ -46,6 +47,7 @@ export default function Home() {
     <>  
       <div style={{height: 600, width: '100%'}} className="ag-theme-alpine static">
         <AgGridReact
+          ref={gridRef}
           rowData={rowData}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}

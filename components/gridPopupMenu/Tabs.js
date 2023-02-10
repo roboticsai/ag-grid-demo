@@ -3,13 +3,9 @@ import { useState } from 'react'
 import Panal from './tabs/Panal'
 import Filter from './tabs/Filter'
 
-export default function Tabs() {
+export default function Tabs({pinColumn}) {
   const activeTabStyle = 'inline-flex p-2 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group'
   const inActiveTabStyle = 'inline-flex p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group'
-  
-  const pinColumn = (pose) => {
-    console.log(pose)
-  }
   
   const [activeTab, setActiveTab] = useState(
     {
@@ -81,8 +77,8 @@ export default function Tabs() {
             </li>
         </ul>
     </div>
-    <Panal visibility={activeTab.panal} pinColumn={() => pinColumn(pose)}/>
-    <Filter visibility={activeTab.filter}/>
+    <Panal visibility={activeTab.panal} pinColumn={() => pinColumn()}/>
+    <Filter visibility={activeTab.filter} />
     </>
   )
 }
