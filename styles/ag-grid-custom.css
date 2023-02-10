@@ -1,0 +1,24 @@
+.ag-theme-alpine {
+  --ag-header-height: 30px;
+  --ag-header-foreground-color: white;
+  --ag-header-background-color: black;
+  --ag-header-cell-hover-background-color: rgb(80, 40, 140);
+  --ag-header-cell-moving-background-color: rgb(80, 40, 140);
+}
+.ag-theme-alpine .ag-header {
+  position: static
+}
+.ag-theme-alpine .ag-header-group-cell {
+  position: static
+}
+.ag-theme-alpine .ag-header-cell {
+  position: static
+}
+
+.ag-theme-alpine .ag-body {
+  position: static
+}
+
+.ag-cell {
+  position: static;
+}
