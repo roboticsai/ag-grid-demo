@@ -3,8 +3,9 @@ import { useCallback, useState } from 'react'
 
 import Panal from './tabs/Panal'
 import Filter from './tabs/Filter'
+import Select from './tabs/Select'
 
-export default function Tabs({pinColumn, filterText}) {
+export default function Tabs({pinColumn, filterText, columns, setActiveColumns}) {
   const activeTabStyle = 'inline-flex p-2 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group'
   const inActiveTabStyle = 'inline-flex p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group'
   
@@ -42,12 +43,12 @@ export default function Tabs({pinColumn, filterText}) {
     }
     else if(tab=='select') {
       setActiveTab({
-        panal: 'visible',
-        panalStyle: activeTabStyle,
+        panal: 'hidden',
+        panalStyle: inActiveTabStyle,
         filter: 'hidden',
         filterStyle: inActiveTabStyle,
-        select: 'hidden',
-        selectStyle: inActiveTabStyle
+        select: 'visible',
+        selectStyle: activeTabStyle
       })
     }
   }
@@ -75,6 +76,7 @@ export default function Tabs({pinColumn, filterText}) {
     </div>
     <Panal visibility={activeTab.panal} pinColumn={(pinColumn)} />
     <Filter visibility={activeTab.filter} filterText={filterText}/>
+    <Select visibility={activeTab.select} columns={columns} setActiveColumns={setActiveColumns}/>
     </>
   )
 }

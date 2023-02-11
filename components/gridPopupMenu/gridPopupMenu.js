@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { ColumnState } from 'ag-grid-community';
 import React from 'react';
 import Tippy from '@tippyjs/react';
@@ -12,6 +12,14 @@ const GridPopupMenu = (props) => {
 
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
+
+  // useEffect (() => {
+  //   props.api.addGlobalListener(function(type, event) {
+  //     if (type.indexOf("column") >= 0) {
+  //         console.log("Got column event: ", event);
+  //     }
+  // });
+  // })
 
   const pinColumn = useCallback((pose) => {
     if(pose!='null') {
@@ -39,39 +47,28 @@ const GridPopupMenu = (props) => {
     }
   })
 
-  const hideColumn = useCallback((state) => {
-    props.columnApi.setColumnVisible('athlete', false);
-  })
+  const setActiveColumns = useCallback((id, state) => {
+    console.log('event', id, state)
+    props.columnApi.setColumnVisible(id, state);
+  }, [])
 
   const filterText = useCallback((text) => {
     props.api.setFilterModel({
       athlete: { type: 'startsWith', filter: text },
     });
-  }, []);
+  }, [])
 
- 
-  const resetPinned = useCallback(() => {
-    gridRef.current.columnApi.applyColumnState({
-      state: [
-        { colId: 'athlete', pinned: 'left' },
-        { colId: 'age', pinned: 'left' },
-        { colId: 'country', pinned: 'left' },
-        { colId: 'year', pinned: 'right' },
-        { colId: 'date', pinned: 'left' },
-        { colId: 'sport', pinned: 'left' },
-        { colId: 'gold', pinned: 'left' },
-        { colId: 'silver', pinned: 'right' },
-        { colId: 'bronze', pinned: 'left' },
-        { colId: 'total', pinned: 'right' },
-      ],
-      defaultState: { pinned: null },
-    });
-  }, []);
+  const exportToCsv = useCallback(() => {
+    props.api.exportDataAsCsv();
+  }, [])
 
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs pinColumn={pinColumn} filterText={filterText}/>}
+      content={<Tabs pinColumn={pinColumn} 
+              filterText={filterText} 
+              setActiveColumns={setActiveColumns}
+              columns={props.columnApi.getColumns()}/>}
       visible={visible}
       onClickOutside={hide}
       allowHTML={true}
