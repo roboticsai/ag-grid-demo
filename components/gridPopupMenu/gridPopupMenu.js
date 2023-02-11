@@ -14,15 +14,36 @@ const GridPopupMenu = (props) => {
   const hide = () => setVisible(false);
 
   const pinColumn = useCallback((pose) => {
-    console.log('pinColumn',pose)
-    props.columnApi.applyColumnState({
-      state: [{ colId: 'athlete', pinned: pose, lockPinned: true, cellClass: 'lock-pinned', }],
-      defaultState: { pinned: null },
-    });
+    if(pose!='null') {
+      props.columnApi.applyColumnState({
+        state: [{ colId: 'athlete', pinned: pose, lockPinned: true, cellClass: 'lock-pinned', }],
+        defaultState: { pinned: null },
+      });
+    }
+    else {
+      props.columnApi.applyColumnState({
+        state: [
+          { colId: 'athlete', pinned: 'left' },
+          { colId: 'age', pinned: 'left' },
+          { colId: 'country', pinned: 'left' },
+          { colId: 'year', pinned: 'right' },
+          { colId: 'date', pinned: 'left' },
+          { colId: 'sport', pinned: 'left' },
+          { colId: 'gold', pinned: 'left' },
+          { colId: 'silver', pinned: 'right' },
+          { colId: 'bronze', pinned: 'left' },
+          { colId: 'total', pinned: 'right' },
+        ],
+        defaultState: { pinned: null },
+      });
+    }
+  })
+
+  const hideColumn = useCallback((state) => {
+    props.columnApi.setColumnVisible('athlete', false);
   })
 
   const filterText = useCallback((text) => {
-    console.log('filter', text)
     props.api.setFilterModel({
       athlete: { type: 'startsWith', filter: text },
     });

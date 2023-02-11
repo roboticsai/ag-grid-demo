@@ -6,13 +6,12 @@ export default function Panal({visibility, pinColumn}) {
 
     return (
       <>
-        <div className={`${visibility} flex flex-row p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
+        <div className={`${visibility} absolute flex flex-row p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
           onMouseOver={() => setShowPinSubMenu('visible')} 
           onMouseOut={() => setShowPinSubMenu('hidden')}>
           <div className="text-sm">Pin Column</div>
-            <ChevronRightIcon className='w-4 h-4'/>
-          </div>
-          <div className={`${showPinSubmenu} z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+          <ChevronRightIcon className='w-4 h-4'/>
+          <div className={`${showPinSubmenu} absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
               onMouseOver={() => setShowPinSubMenu('visible')}
               onMouseOut={() => setShowPinSubMenu('hidden')}
             >
@@ -32,6 +31,8 @@ export default function Panal({visibility, pinColumn}) {
                 >Pin Right</button>            </li>
               </ul>
             </div>
+        </div>
+
       </>
     )
 }
