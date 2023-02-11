@@ -12,8 +12,8 @@ const GridPopupMenu = (props) => {
   const hide = () => setVisible(false);
 
   const pinColumn = () => {
-    console.log('column api', props.columnApi)
-    props.columnApi.getPrimaryColumns()
+    console.log('column api', props.colId)
+    props.columnApi.setColumnsPinned(props.colId)
   }
 
   return (
@@ -28,8 +28,8 @@ const GridPopupMenu = (props) => {
       interactive={true}
       placement="right"
     >
-    <div className='flex w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
-      <div className='object:none object-left'>{props.displayName}</div>
+    <div className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
+      <div>{props.displayName}</div>
       <a onClick={visible ? hide : show} 
         href="#" className={`${menuVisibility} right-0`}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
