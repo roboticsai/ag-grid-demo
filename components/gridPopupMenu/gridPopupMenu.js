@@ -14,12 +14,20 @@ const GridPopupMenu = (props) => {
   const hide = () => setVisible(false);
 
   const pinColumn = useCallback((pose) => {
-    console.log('pose',pose)
+    console.log('pinColumn',pose)
     props.columnApi.applyColumnState({
       state: [{ colId: 'athlete', pinned: pose, lockPinned: true, cellClass: 'lock-pinned', }],
       defaultState: { pinned: null },
     });
   })
+
+  const filterText = useCallback((text) => {
+    console.log('filter', text)
+    props.api.setFilterModel({
+      athlete: { type: 'startsWith', filter: text },
+    });
+  }, []);
+
  
   const resetPinned = useCallback(() => {
     gridRef.current.columnApi.applyColumnState({
@@ -42,7 +50,7 @@ const GridPopupMenu = (props) => {
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs pinColumn={pinColumn}/>}
+      content={<Tabs pinColumn={pinColumn} filterText={filterText}/>}
       visible={visible}
       onClickOutside={hide}
       allowHTML={true}

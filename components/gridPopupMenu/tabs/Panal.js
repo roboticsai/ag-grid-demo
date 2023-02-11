@@ -6,22 +6,32 @@ export default function Panal({visibility, pinColumn}) {
 
     return (
       <>
-        <div className={`${visibility} p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}>
-        <div className='flex flex-row' 
+        <div className={`${visibility} flex flex-row p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
           onMouseOver={() => setShowPinSubMenu('visible')} 
           onMouseOut={() => setShowPinSubMenu('hidden')}>
           <div className="text-sm">Pin Column</div>
             <ChevronRightIcon className='w-4 h-4'/>
-        </div>
-        <div className={`${showPinSubmenu} flex flex-col subnav-content p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
-        onMouseOver={() => setShowPinSubMenu('visible')}
-        onMouseOut={() => setShowPinSubMenu('hidden')}
-        >
-          <button name='null' onClick={(e) => pinColumn(e.target.name)}>No Pin</button>
-          <button name='left' onClick={(e) => pinColumn(e.target.name)}>Pin Left</button>
-          <button name='right' onClick={(e) => pinColumn(e.target.name)}>Pin Right</button>
-        </div>
-      </div>
+          </div>
+          <div className={`${showPinSubmenu} z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}
+              onMouseOver={() => setShowPinSubMenu('visible')}
+              onMouseOut={() => setShowPinSubMenu('hidden')}
+            >
+              <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                <li>
+                <button name='null' onClick={(e) => pinColumn(e.target.name)} 
+                className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                >Remove Pins</button>
+                </li>
+                <li>
+                <button name='left' onClick={(e) => pinColumn(e.target.name)} 
+                className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                >Pin Left</button>            </li>
+                <li>
+                <button name='right' onClick={(e) => pinColumn(e.target.name)} 
+                className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
+                >Pin Right</button>            </li>
+              </ul>
+            </div>
       </>
     )
 }
