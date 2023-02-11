@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { ColumnState } from 'ag-grid-community';
 import React from 'react';
 import Tippy from '@tippyjs/react';
 import Tabs from './Tabs'
+import { Bars3Icon, BeakerIcon } from '@heroicons/react/24/solid'
 
 const GridPopupMenu = (props) => {
   const tippyRef = useRef();
@@ -11,15 +13,36 @@ const GridPopupMenu = (props) => {
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
 
-  const pinColumn = () => {
-    console.log('column api', props.colId)
-    props.columnApi.setColumnsPinned(props.colId)
-  }
+  const pinColumn = useCallback((pose) => {
+    console.log('pose',pose)
+    props.columnApi.applyColumnState({
+      state: [{ colId: 'athlete', pinned: 'right', lockPinned: true, cellClass: 'lock-pinned', }],
+      defaultState: { pinned: null },
+    });
+  })
+ 
+  const resetPinned = useCallback(() => {
+    gridRef.current.columnApi.applyColumnState({
+      state: [
+        { colId: 'athlete', pinned: 'left' },
+        { colId: 'age', pinned: 'left' },
+        { colId: 'country', pinned: 'left' },
+        { colId: 'year', pinned: 'right' },
+        { colId: 'date', pinned: 'left' },
+        { colId: 'sport', pinned: 'left' },
+        { colId: 'gold', pinned: 'left' },
+        { colId: 'silver', pinned: 'right' },
+        { colId: 'bronze', pinned: 'left' },
+        { colId: 'total', pinned: 'right' },
+      ],
+      defaultState: { pinned: null },
+    });
+  }, []);
 
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs pinColumn={() => pinColumn()}/>}
+      content={<Tabs />}
       visible={visible}
       onClickOutside={hide}
       allowHTML={true}
@@ -32,9 +55,7 @@ const GridPopupMenu = (props) => {
       <div>{props.displayName}</div>
       <a onClick={visible ? hide : show} 
         href="#" className={`${menuVisibility} right-0`}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4 h-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
+        <Bars3Icon className="w-4 h-4"/>
       </a>
       </div>
     </Tippy>

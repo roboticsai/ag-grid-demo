@@ -15,7 +15,7 @@ export default function Home() {
     { 
       field: 'athlete',
       // headerComponent: GridPopupMenu, 
-      headerComponent: GridPopupMenu,
+      headerComponent: GridPopupMenu
     },
     { field: 'age' },
     { field: 'country' },
