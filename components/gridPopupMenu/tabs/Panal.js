@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { ChevronRightIcon } from '@heroicons/react/24/solid'
 
 export default function Panal({visibility, pinColumn}) {
   const [showPinSubmenu, setShowPinSubMenu] = useState('hidden')
@@ -16,9 +17,9 @@ export default function Panal({visibility, pinColumn}) {
         onMouseOver={() => setShowPinSubMenu('visible')}
         onMouseOut={() => setShowPinSubMenu('hidden')}
         >
-          <button onClick={() => pinColumn('null')}>No Pin</button>
-          <button onClick={() => pinColumn('left')}>Pin Left</button>
-          <button onClick={() => pinColumn('right')}>Pin Right</button>
+          <button name='null' onClick={(e) => pinColumn(e.target.name)}>No Pin</button>
+          <button name='left' onClick={(e) => pinColumn(e.target.name)}>Pin Left</button>
+          <button name='right' onClick={(e) => pinColumn(e.target.name)}>Pin Right</button>
         </div>
       </div>
       </>

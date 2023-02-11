@@ -1,10 +1,10 @@
 import { Bars3Icon, ChevronRightIcon, FunnelIcon, ViewColumnsIcon } from '@heroicons/react/24/solid'
 import { useCallback, useState } from 'react'
 
-// import Panal from './tabs/Panal'
-// import Filter from './tabs/Filter'
+import Panal from './tabs/Panal'
+import Filter from './tabs/Filter'
 
-export default function Tabs() {
+export default function Tabs({pinColumn}) {
   const activeTabStyle = 'inline-flex p-2 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group'
   const inActiveTabStyle = 'inline-flex p-2 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group'
   
@@ -52,10 +52,6 @@ export default function Tabs() {
     }
   }
 
-  const setFilterText = useCallback((text) => {
-    console.log(text)
-  })
-
   return (
     <>
     <div className="bg-white w-full border-b border-gray-200 dark:border-gray-700">
@@ -77,33 +73,9 @@ export default function Tabs() {
             </li>
         </ul>
     </div>
-    <Panal visibility={activeTab.panal} pinColumn={() => setFilterText()}/>
-    {/* <Filter visibility={activeTab.filter} /> */}
+    <Panal visibility={activeTab.panal} pinColumn={(pinColumn)} />
+    <Filter visibility={activeTab.filter} />
     </>
   )
 }
 
-function Panal({visibility, pinColumn}) {
-  const [showPinSubmenu, setShowPinSubMenu] = useState('hidden')
-
-    return (
-      <>
-        <div className={`${visibility} p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}>
-        <div className='flex flex-row' 
-          onMouseOver={() => setShowPinSubMenu('visible')} 
-          onMouseOut={() => setShowPinSubMenu('hidden')}>
-          <div className="text-sm">Pin Column</div>
-            <ChevronRightIcon className='w-4 h-4'/>
-        </div>
-        <div className={`${showPinSubmenu} flex flex-col subnav-content p-4 rounded-lg bg-gray-50 dark:bg-gray-800`}
-        onMouseOver={() => setShowPinSubMenu('visible')}
-        onMouseOut={() => setShowPinSubMenu('hidden')}
-        >
-          <button onClick={() => pinColumn('null')}>No Pin</button>
-          <button onClick={() => pinColumn('left')}>Pin Left</button>
-          <button onClick={() => pinColumn('right')}>Pin Right</button>
-        </div>
-      </div>
-      </>
-    )
-}

@@ -16,7 +16,7 @@ const GridPopupMenu = (props) => {
   const pinColumn = useCallback((pose) => {
     console.log('pose',pose)
     props.columnApi.applyColumnState({
-      state: [{ colId: 'athlete', pinned: 'right', lockPinned: true, cellClass: 'lock-pinned', }],
+      state: [{ colId: 'athlete', pinned: pose, lockPinned: true, cellClass: 'lock-pinned', }],
       defaultState: { pinned: null },
     });
   })
@@ -42,7 +42,7 @@ const GridPopupMenu = (props) => {
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs />}
+      content={<Tabs pinColumn={pinColumn}/>}
       visible={visible}
       onClickOutside={hide}
       allowHTML={true}
