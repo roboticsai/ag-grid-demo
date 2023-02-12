@@ -13,9 +13,11 @@ export default function Home() {
   const gridRef = useRef()
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
-    {
-      field: 'Group',
-      headerComponent: ActionHeaderGroup,
+    // Single Group Column (Custom)
+    { 
+        headerName: 'Group',
+        cellRenderer: 'agGroupCellRenderer', 
+        showRowGroup: true 
     },
     { 
       headerComponent: GridPopupMenu, 
@@ -23,7 +25,7 @@ export default function Home() {
       sortable: true, 
       checkboxSelection: true,
       suppressMenu: false
-    },
+    }, 
     { field: 'age' },
     { field: 'country', rowGroup: true, hide: true },
     { field: 'year', rowGroup: true, hide: true },
@@ -33,11 +35,18 @@ export default function Home() {
     { field: 'silver' },
     { field: 'bronze' },
     { field: 'total' },
-    { field: 'Action', pinned: 'right', lockPinned: true, cellClass: 'lock-pinned', }
+    { 
+      field: 'Action',
+      headerComponent: ActionHeaderGroup, 
+      pinned: 'right', 
+      lockPinned: true, 
+      cellClass: 'lock-pinned', 
+    }
   ]);
   
   const defaultColDef = useMemo(() => {
     return {
+      editable: true,
       sortable: true,
       filter: true,
       resizable: true,
@@ -57,7 +66,7 @@ export default function Home() {
   }, []);
 
   // display each row grouping in group rows
-  const groupDisplayType = 'groupRows';
+  const groupDisplayType = 'custom';
 
   return (
     <>  

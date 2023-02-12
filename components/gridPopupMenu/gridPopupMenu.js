@@ -73,7 +73,7 @@ const GridPopupMenu = (props) => {
       }
       props.progressSort(true)
     }
-  })
+  }) 
 
   const showMenu = () => {
     if(props.enableMenu) {
