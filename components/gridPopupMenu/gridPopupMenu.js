@@ -3,12 +3,15 @@ import { ColumnState } from 'ag-grid-community';
 import React from 'react';
 import Tippy from '@tippyjs/react';
 import Tabs from './Tabs'
-import { Bars3Icon, BeakerIcon } from '@heroicons/react/24/solid'
+import { ArrowDownIcon, ArrowUpIcon, Bars3Icon, BeakerIcon } from '@heroicons/react/24/solid'
 
 const GridPopupMenu = (props) => {
   const tippyRef = useRef();
   const [visible, setVisible] = useState(false);
   const [menuVisibility, setMenuVisibility] = useState('hidden')
+  const [clickCount, setClickCount] = useState(0)
+  const [upArrowVisibility, setUpArrowVisibility] = useState('hidden')
+  const [downArrowVisibility, setDownArrowVisibility] = useState('hidden')
 
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
@@ -61,6 +64,22 @@ const GridPopupMenu = (props) => {
     props.api.exportDataAsCsv();
   }, [])
 
+  const headerClicked = useCallback(() => {
+    setClickCount(clickCount+1)
+    if(clickCount%3 == 0) {
+      setUpArrowVisibility('visible')
+      setDownArrowVisibility('hidden')
+    }
+    else if(clickCount%3 == 1) {
+      setUpArrowVisibility('hidden')
+      setDownArrowVisibility('visible')
+    }    
+    else {
+      setUpArrowVisibility('hidden')
+      setDownArrowVisibility('hidden')    }
+    props.progressSort(true)
+  })
+
   return (
     <Tippy
       ref={tippyRef}
@@ -76,13 +95,12 @@ const GridPopupMenu = (props) => {
       interactive={true}
       placement="right"
     >
-    <div className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
+    <div onClick={() => headerClicked()} className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
       <div>{props.displayName}</div>
-      <a onClick={visible ? hide : show} 
-        href="#" className={`${menuVisibility} right-0`}>
-        <Bars3Icon className="w-4 h-4"/>
-      </a>
-      </div>
+      <ArrowUpIcon className={`${upArrowVisibility} w-4 h-4`}/>
+      <ArrowDownIcon className={`${downArrowVisibility} w-4 h-4`}/>
+      <Bars3Icon onClick={visible ? hide : show} className={`${menuVisibility} w-4 h-4`}/>
+    </div>
     </Tippy>
   );
 };

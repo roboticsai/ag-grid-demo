@@ -14,14 +14,12 @@ export default function Home() {
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
     { 
-      field: 'athlete',
-      // headerComponent: GridPopupMenu, 
-      sortable: true,
-      headerComponent: GridPopupMenu
+      field: 'athlete', sortable: true, headerComponent: GridPopupMenu, 
+      checkboxSelection: true,
     },
     { field: 'age' },
-    { field: 'country' },
-    { field: 'year' },
+    { field: 'country', },
+    { field: 'year', },
     { field: 'date' },
     { field: 'sport' },
     { field: 'gold' },
@@ -33,7 +31,6 @@ export default function Home() {
   
   const defaultColDef = useMemo(() => {
     return {
-      editable: true,
       sortable: true,
       filter: true,
       resizable: true,
@@ -42,8 +39,14 @@ export default function Home() {
 
   const onGridReady = useCallback((params) => {
     fetch('https://www.ag-grid.com/example-assets/olympic-winners.json')
-      .then((resp) => resp.json())
+      .then((resp) => resp.json()) 
       .then((data) => setRowData(data));
+  }, []);
+
+  const autoGroupColumnDef = useMemo(() => {
+    return {
+      minWidth: 200,
+    };
   }, []);
 
   return (
@@ -54,6 +57,8 @@ export default function Home() {
           rowData={rowData}
           columnDefs={columnDefs}
           defaultColDef={defaultColDef}
+          // autoGroupColumnDef={autoGroupColumnDef}
+          animateRows={true}
           onGridReady={onGridReady}
         ></AgGridReact>
       </div>
