@@ -13,11 +13,10 @@ export default function Home() {
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
     { 
-      field: 'athlete',
-      // headerComponent: GridPopupMenu, 
+      field: 'athlete', movable: true,
       headerComponent: GridPopupMenu
     },
-    { field: 'age' },
+    { field: 'age', movable: true, },
     { field: 'country' },
     { field: 'year' },
     { field: 'date' },
@@ -30,7 +29,6 @@ export default function Home() {
   
   const defaultColDef = useMemo(() => {
     return {
-      editable: true,
       sortable: true,
       filter: true,
       resizable: true,
