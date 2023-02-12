@@ -13,16 +13,8 @@ const GridPopupMenu = (props) => {
   const [upArrowVisibility, setUpArrowVisibility] = useState('hidden')
   const [downArrowVisibility, setDownArrowVisibility] = useState('hidden')
 
-  const show = () => setVisible(true);
+  const show = () => setVisible(true)
   const hide = () => setVisible(false);
-
-  // useEffect (() => {
-  //   props.api.addGlobalListener(function(type, event) {
-  //     if (type.indexOf("column") >= 0) {
-  //         console.log("Got column event: ", event);
-  //     }
-  // });
-  // })
 
   const pinColumn = useCallback((pose) => {
     if(pose!='null') {
@@ -65,21 +57,29 @@ const GridPopupMenu = (props) => {
   }, [])
 
   const headerClicked = useCallback(() => {
-    console.log('clicked')
-    setClickCount(clickCount+1)
-    if(clickCount%3 == 0) {
-      setUpArrowVisibility('visible')
-      setDownArrowVisibility('hidden')
+    if(props.enableSorting) {
+      setClickCount(clickCount+1)
+      if(clickCount%3 == 0) {
+        setUpArrowVisibility('visible')
+        setDownArrowVisibility('hidden')
+      }
+      else if(clickCount%3 == 1) {
+        setUpArrowVisibility('hidden')
+        setDownArrowVisibility('visible')
+      }    
+      else {
+        setUpArrowVisibility('hidden')
+        setDownArrowVisibility('hidden')    
+      }
+      props.progressSort(true)
     }
-    else if(clickCount%3 == 1) {
-      setUpArrowVisibility('hidden')
-      setDownArrowVisibility('visible')
-    }    
-    else {
-      setUpArrowVisibility('hidden')
-      setDownArrowVisibility('hidden')    }
-    props.progressSort(true)
   })
+
+  const showMenu = () => {
+    if(props.enableMenu) {
+      setMenuVisibility('visible')
+    }
+  }
 
   return (
     <Tippy
@@ -96,7 +96,7 @@ const GridPopupMenu = (props) => {
       interactive={true}
       placement="right"
     >
-      <div className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
+      <div className='flex justify-between w-full' onMouseOver={() => showMenu()} onMouseOut={() => setMenuVisibility('hidden')}>
         <div onClick={() => headerClicked()} className='flex space-x-1 w-full' >
           <div>{props.displayName}</div>
             <ArrowSmallUpIcon className={`${upArrowVisibility} w-4 h-4`}/>
