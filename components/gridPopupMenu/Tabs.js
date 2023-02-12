@@ -55,22 +55,22 @@ export default function Tabs({pinColumn, filterText, columns, setActiveColumns})
 
   return (
     <>
-    <div className="container max-w-screen-lg mx-auto static rounded border border-black-600 bg-white w-full dark:border-gray-700">
+    <div className="static rounded border border-black-600 bg-white w-full dark:border-gray-700">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
             <li className="mr-2">
-                <button onClick={() => tabClicked('panal')} className={activeTab.panalStyle}>
-                  <Bars3Icon className='w-4 h-4'/>
-                </button>
+                <a onClick={() => tabClicked('panal')} href="#" className={activeTab.panalStyle}>
+                <Bars3Icon className='w-4 h-4'/>
+                </a>
             </li>
             <li className="mr-2">
-                <button onClick={() => tabClicked('filter')} className={activeTab.filterStyle}>
-                <FunnelIcon className='w-4 h-4'/>
-                </button>
+                <a onClick={() => tabClicked('filter')} href="#" className={activeTab.filterStyle}>
+                  <FunnelIcon className='w-4 h-4'/>
+                </a>
             </li>
             <li className="mr-2">
-                <button onClick={() => tabClicked('select')} className={activeTab.selectStyle}>
-                <ViewColumnsIcon className='w-4 h-4'/>
-                </button>
+                <a onClick={() => tabClicked('select')} href="#" className={activeTab.selectStyle}>
+                  <ViewColumnsIcon className='w-4 h-4'/>
+                </a>
             </li>
         </ul>
     </div>

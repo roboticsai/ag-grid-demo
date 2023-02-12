@@ -57,10 +57,16 @@ const GridPopupMenu = (props) => {
     });
   }, [])
 
+  const exportToCsv = useCallback(() => {
+    props.api.exportDataAsCsv();
+  }, [])
+
   return (
     <Tippy
       ref={tippyRef}
-      content={<Tabs pinColumn={pinColumn} filterText={filterText} setActiveColumns={setActiveColumns}
+      content={<Tabs pinColumn={pinColumn} 
+              filterText={filterText} 
+              setActiveColumns={setActiveColumns}
               columns={props.columnApi.getColumns()}/>}
       visible={visible}
       onClickOutside={hide}
@@ -72,9 +78,10 @@ const GridPopupMenu = (props) => {
     >
     <div className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
       <div>{props.displayName}</div>
-      <button onClick={visible ? hide : show} className={`${menuVisibility} right-0`}>
+      <a onClick={visible ? hide : show} 
+        href="#" className={`${menuVisibility} right-0`}>
         <Bars3Icon className="w-4 h-4"/>
-      </button>
+      </a>
       </div>
     </Tippy>
   );

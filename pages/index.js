@@ -7,16 +7,19 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 // import styles from '@/styles/Home.module.css'
 import GridPopupMenu from '../components/gridPopupMenu/gridPopupMenu'
+import Action from '../components/Action'
 
 export default function Home() {
   const gridRef = useRef()
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
     { 
-      field: 'athlete', movable: true,
+      field: 'athlete',
+      // headerComponent: GridPopupMenu, 
+      sortable: true,
       headerComponent: GridPopupMenu
     },
-    { field: 'age', movable: true, },
+    { field: 'age' },
     { field: 'country' },
     { field: 'year' },
     { field: 'date' },
@@ -25,10 +28,12 @@ export default function Home() {
     { field: 'silver' },
     { field: 'bronze' },
     { field: 'total' },
+    { field: 'Action', cellRenderer: Action, pinned: 'right', lockPinned: true, cellClass: 'lock-pinned', }
   ]);
   
   const defaultColDef = useMemo(() => {
     return {
+      editable: true,
       sortable: true,
       filter: true,
       resizable: true,
