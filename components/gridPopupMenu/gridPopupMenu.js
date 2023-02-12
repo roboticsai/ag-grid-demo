@@ -3,7 +3,7 @@ import { ColumnState } from 'ag-grid-community';
 import React from 'react';
 import Tippy from '@tippyjs/react';
 import Tabs from './Tabs'
-import { ArrowDownIcon, ArrowUpIcon, Bars3Icon, BeakerIcon } from '@heroicons/react/24/solid'
+import { ArrowDownIcon, ArrowSmallDownIcon, ArrowSmallUpIcon, ArrowUpIcon, Bars3Icon, BeakerIcon } from '@heroicons/react/24/solid'
 
 const GridPopupMenu = (props) => {
   const tippyRef = useRef();
@@ -65,6 +65,7 @@ const GridPopupMenu = (props) => {
   }, [])
 
   const headerClicked = useCallback(() => {
+    console.log('clicked')
     setClickCount(clickCount+1)
     if(clickCount%3 == 0) {
       setUpArrowVisibility('visible')
@@ -95,12 +96,14 @@ const GridPopupMenu = (props) => {
       interactive={true}
       placement="right"
     >
-    <div onClick={() => headerClicked()} className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
-      <div>{props.displayName}</div>
-      <ArrowUpIcon className={`${upArrowVisibility} w-4 h-4`}/>
-      <ArrowDownIcon className={`${downArrowVisibility} w-4 h-4`}/>
-      <Bars3Icon onClick={visible ? hide : show} className={`${menuVisibility} w-4 h-4`}/>
-    </div>
+      <div className='flex justify-between w-full' onMouseOver={() => setMenuVisibility('visible')} onMouseOut={() => setMenuVisibility('hidden')}>
+        <div onClick={() => headerClicked()} className='flex space-x-1 w-full' >
+          <div>{props.displayName}</div>
+            <ArrowSmallUpIcon className={`${upArrowVisibility} w-4 h-4`}/>
+            <ArrowSmallDownIcon className={`${downArrowVisibility} w-4 h-4`}/>
+        </div>
+        <Bars3Icon onClick={visible ? hide : show} className={`${menuVisibility} w-4 h-4`}/>
+      </div>
     </Tippy>
   );
 };
